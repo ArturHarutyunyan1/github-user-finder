@@ -1,11 +1,14 @@
 <template>
-    <form class="search-bar" @submit.prevent>
+    <form class="search-bar" @submit.prevent @submit="checkForm">
         <div class="space-btw">
             <div class="item">
                 <img src="@/assets/search-icon.svg" alt="Search">
                 <input type="text" class="input" v-model="query" placeholder="Search Github username...">
             </div>
             <div class="item">
+                <h4 class="errorMsg" v-if="showErrorMsg || !user.login">
+                    Not found
+                </h4>
                 <div class="search">
                     <button @click="userSearch(this.query)">Search</button>
                 </div>
@@ -14,7 +17,7 @@
     </form>
 </template>
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { mapMutations, mapActions, mapState } from 'vuex'
 export default {
     name: 'SearchBar',
     data(){
@@ -23,10 +26,21 @@ export default {
             showErrorMsg: false
         }
     },
+    computed:{
+        ...mapState(['user'])
+    },
     methods: {
         ...mapMutations(['setUser']),
-        ...mapActions(['userSearch'])
-    }
+        ...mapActions(['userSearch']),
+
+        checkForm(){
+            if(this.query == ''){
+                this.showErrorMsg = true
+            }else{
+                this.showErrorMsg = false
+            }
+        }
+    },
 }
 </script>
 <style scoped>
@@ -94,4 +108,7 @@ export default {
     cursor: pointer;
 }
 
+.errorMsg{
+    color: var(--red);
+}
 </style>

@@ -181,19 +181,16 @@ computed:{
 .wrap{
     width: 100%;
     min-height: 100px;
-    margin: auto;
     display: grid;
     justify-content: space-between;
-    align-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    text-align: left;
+    grid-template-columns: repeat(2, 2fr);
 }
 
 .inline{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8vw;
+    font-size: 1vw;
 }
 
 .inline h4{
